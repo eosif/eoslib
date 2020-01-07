@@ -26,6 +26,8 @@ change writeName add writeUint64 support custom contract
 ## support offline sign
  
  ```
+Rpc rpc = new Rpc("http://127.0.0.1:8880");
+SignParam params = rpc.getOfflineSignParams(3600l); 
 OfflineSign sign = new OfflineSign();
 String content =sign.transfer(params,"5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3","eosio.token","eeeeeeeeeeee", "555555555551", "372.0993 EOS", "test");
 	
@@ -40,7 +42,7 @@ String content =sign.transfer(params,"5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXt
  	"eosio.token",
  	"eosio",
  	"eosio.token",
- 	"12.2821 SYS",
+ 	"12.2821 EOS",
  	"");
 
 ```
@@ -55,8 +57,8 @@ String content =sign.transfer(params,"5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXt
  	"EOS8eAX54cJtAngV2V22WZhRCW7e4sTAZz1mC5U22vp8mAGuFdMXx",
  	"EOS8eAX54cJtAngV2V22WZhRCW7e4sTAZz1mC5U22vp8mAGuFdMXx", 
  	8192l, 
- 	"1.0000 SYS",
- 	"1.0000 SYS",
+ 	"1.0000 EOS",
+ 	"1.0000 EOS",
  	0l);
  	
 ```
