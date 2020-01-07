@@ -9,7 +9,7 @@ change writeName add writeUint64 support custom contract
 <dependency>
     <groupId>com.github.eosif</groupId>
     <artifactId>eos-lib</artifactId>
-    <version>1.0.6</version>
+    <version>1.0.10</version>
 </dependency>    
 ```
 
