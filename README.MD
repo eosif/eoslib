@@ -1,6 +1,6 @@
 # eoslib
 
-eoslib 1.0 for java 
+eoslib 1.0.6 for java 
 
 change writeName add writeUint64 support custom contract
 
@@ -9,12 +9,47 @@ change writeName add writeUint64 support custom contract
 <dependency>
     <groupId>com.github.eosif</groupId>
     <artifactId>eos-lib</artifactId>
-    <version>1.0</version>
+    <version>1.0.6</version>
 </dependency>    
 ```
 
 
 # use
+
+
+## support offline sign
+ 
+ ```
+    public static void main(String[] args) {
+        Rpc rpc = new Rpc("http://127.0.0.1:8880");
+        String fromAccount = "sdfaassdfew";
+        String toAccount = "asdfads";
+        String amount = "0.001";
+        String privateKey = "5Hzr1sPAJMdsewddgfewSdb5Qm54sDgFVSGRFSUJqdCdHUFJnX1oY";
+        String memo = "123456";
+        SignParam params = rpc.getOfflineSignParams(3600l);
+        OfflineSign sign = new OfflineSign();
+        String content = "";
+        try {
+            content = sign.transfer(params, privateKey, "eosio.token",
+                    fromAccount, toAccount, String.format("%.4f EOS", Double.parseDouble(amount)), memo);
+            System.out.println(content);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Transaction tx = rpc.pushTransaction(content);
+            System.out.println(tx.getTransactionId());
+        } catch (ApiException ex) {
+            System.out.println(ex.getError());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+	
+ ```
+
 
 ## voteproducer
 
@@ -23,15 +58,6 @@ change writeName add writeUint64 support custom contract
  	
  ```
 
-## support offline sign
- 
- ```
-Rpc rpc = new Rpc("http://127.0.0.1:8880");
-SignParam params = rpc.getOfflineSignParams(3600l); 
-OfflineSign sign = new OfflineSign();
-String content =sign.transfer(params,"5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3","eosio.token","eeeeeeeeeeee", "555555555551", "372.0993 EOS", "test");
-	
- ```
 
 ## transfer
 
