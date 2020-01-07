@@ -6,7 +6,7 @@
 
     <groupId>com.github.eosif</groupId>
     <artifactId>eos-lib</artifactId>
-    <version>1.0</version>
+    <version>1.0.6</version>
 
     <parent>
         <groupId>org.sonatype.oss</groupId>
@@ -93,7 +93,7 @@
         <dependency>
             <groupId>com.github.xcriptor</groupId>
             <artifactId>xcriptor-serial</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>com.squareup.retrofit2</groupId>
