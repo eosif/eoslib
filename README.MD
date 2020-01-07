@@ -1,6 +1,6 @@
 # eoslib
 
-eoslib 1.0.6 for java 
+eoslib 1.0.10 for java 
 
 change writeName add writeUint64 support custom contract
 
