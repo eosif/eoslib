@@ -1,6 +1,9 @@
 package io.eosif.lib.utils;
 
 
+import io.eosif.lib.esc.Action;
+import io.eosif.lib.esc.DataParam;
+import io.eosif.lib.esc.DataType;
 import io.eosif.lib.rpc.vo.BaseVo;
 
 import java.lang.reflect.Field;
@@ -9,7 +12,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 
 public class ObjectUtils {
 
@@ -97,7 +99,17 @@ public class ObjectUtils {
 				} else if ("to".equals(key)) {
 					bf.concat(ByteUtils.writeName(obj.toString()));
 				} else if ("quantity".equals(key)) {
-					bf.concat(ByteUtils.writerAsset(obj.toString()));
+					String quantity = obj.toString();
+					if (quantity.contains("@")) {
+						if(quantity.contains(",")) {
+							bf.concat(ByteUtils.writerAsset(quantity));
+						} else {
+							DataParam dp = new DataParam(quantity, DataType.extended_asset, Action.extransfer);
+							bf.concat(dp.seria());
+						}
+					} else {
+						bf.concat(ByteUtils.writerAsset(obj.toString()));
+					}
 				} else if ("memo".equals(key)) {
 					bf.concat(ByteUtils.writerString(obj.toString()));
 				} else if ("creator".equals(key)) {

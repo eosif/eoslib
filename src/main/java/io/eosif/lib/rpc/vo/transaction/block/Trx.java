@@ -21,4 +21,11 @@ public class Trx {
         this.id = id;
     }
 
+    public InnerTransaction getTransaction() {
+        return transaction;
+    }
+
+    public void setTransaction(InnerTransaction transaction) {
+        this.transaction = transaction;
+    }
 }

@@ -3,6 +3,7 @@ package io.eosif.lib.utils;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.stream.IntStream;
 
 /**
  * 
@@ -38,14 +39,15 @@ public class ByteUtils {
 	public static int[] LongToBytes(Long n) {
 		ByteBuffer hi = ByteBuffer.allocate(Long.BYTES).order(ByteOrder.BIG_ENDIAN).putLong(n);
 		byte[] buf = hi.array();
-		int[] a = new int[buf.length];
-		for (int i = 0; i< buf.length; i++){
-			a[i] = buf[i] & 0xff;
-		}
-		//int[] a = IntStream.range(0, buf.length).map(i -> buf[i] & 0xff).toArray();
+		int[] a = IntStream.range(0, buf.length).map(i -> buf[i] & 0xff).toArray();
 		return a;
 	}
 
+	/**
+	 * 
+	 * @param value
+	 * @return
+	 */
 	public static String stringToAscii(String value) {
 		StringBuffer sbu = new StringBuffer();
 		char[] chars = value.toCharArray();
@@ -59,6 +61,12 @@ public class ByteUtils {
 		return sbu.toString();
 	}
 
+	/**
+	 * writerUnit32
+	 * 
+	 * @param value
+	 * @return
+	 */
 	public static byte[] writerUnit32(String value) {
 
 		Long l = Long.parseLong(value);
@@ -79,16 +87,34 @@ public class ByteUtils {
 		}
 	}
 
+	/**
+	 * writerUnit16
+	 * 
+	 * @param value
+	 * @return
+	 */
 	public static byte[] writerUnit16(String value) {
 		long vl = Long.parseLong(value);
 		return new byte[] { (byte) (vl & 0x00FF), (byte) ((vl & 0xFF00) >>> 8) };
 	}
 
+	/**
+	 * writerUnit8
+	 * 
+	 * @param value
+	 * @return
+	 */
 	public static byte[] writerUnit8(String value) {
 		long vl = Long.parseLong(value);
 		return new byte[] { (byte) (vl & 0x00FF) };
 	}
 
+	/**
+	 * writerVarint32
+	 * 
+	 * @param v
+	 * @return
+	 */
 	public static byte[] writerVarint32(String v) {
 		long value = Long.parseLong(v);
 		byte[] a = new byte[] {};
@@ -102,6 +128,12 @@ public class ByteUtils {
 		return a;
 	}
 
+	/**
+	 * writerAsset
+	 * 
+	 * @param v
+	 * @return
+	 */
 	public static byte[] writerAsset(String v) {
 		String _value[] = v.split(" ");
 		String amount = _value[0];
@@ -142,52 +174,13 @@ public class ByteUtils {
 		ByteBuffer ba = ByteBuffer.wrap(asset.getBytes());
 		return ByteUtils.concat(ammount.array(), ba.array());
 	}
-	public static byte[] writerExtAsset(String v) {
-		String _value[] = v.split(" ");
-		String amount = _value[0];
-		if(amount==null || !amount.matches("^[0-9]+(.[0-9]+)?$")){
-			throw new EException("amount_error", "amount error");
-		}
-		String sym = _value[1];
-		String precision = sym.split(",")[0];
-		String symbol = sym.split(",")[1].split("@")[0];
-		String[] part = amount.split("[.]");
 
-		int pad = Integer.parseInt(precision);
-		StringBuffer bf = new StringBuffer(part[0] + ".");
-		if (part.length > 1) {
-			if(part[1].length()>pad) {
-				throw new EException("precision_error", "precision max "+pad);
-			}
-			pad = Integer.parseInt(precision) - part[1].length();
-			bf.append(part[1]);
-		}
-		// ���Ȳ�0
-		for (int i = 0; i < pad; i++) {
-			bf.append("0");
-		}
-		String asset = precision + "," + symbol;
-		// amount
-		amount = bf.toString().replace(".", "");
-		ByteBuffer ammount = ByteBuffer.allocate(Long.BYTES).order(ByteOrder.LITTLE_ENDIAN)
-				.putLong(Long.parseLong(amount));
-
-		// asset
-		StringBuffer padStr = new StringBuffer();
-		for (int i = 0; i < (7 - symbol.length()); i++) {
-			padStr.append("\0");
-		}
-		char c = (char) Integer.parseInt(precision);
-		asset = c + symbol + padStr;
-		ByteBuffer ba = ByteBuffer.wrap(asset.getBytes());
-
-//		byte[]aaa=ByteUtils.concat(ammount.array(), ba.array());
-		byte[]aaa=ByteUtils.concat(ammount.array(), ba.array());
-		aaa=ByteUtils.concat(aaa,ByteBuffer.wrap("DCCY".getBytes()).array());
-
-		return aaa;
-	}
-
+	/**
+	 * writerAsset
+	 * 
+	 * @param v
+	 * @return
+	 */
 	public static byte[] writerSymbol(String v) {
 		String _value[] = v.split(" ");
 		String amount = _value[0];
@@ -229,6 +222,12 @@ public class ByteUtils {
 		return ba.array();
 	}
 
+	/**
+	 * writerAccount
+	 * 
+	 * @param v
+	 * @return
+	 */
 	public static byte[] writeName(String v) {
 		StringBuffer bitstr = new StringBuffer();
 		for (int i = 0; i <= 12; i++) {
@@ -257,6 +256,11 @@ public class ByteUtils {
 		return ByteBuffer.allocate(Long.BYTES).order(ByteOrder.LITTLE_ENDIAN).putLong(ulName.longValue()).array();
 	}
 
+	/**
+	 * charCount
+	 * 
+	 * @return
+	 */
 	private static long charCount(String v) {
 		long c = 0;
 		for (char cp : v.toCharArray()) {
@@ -273,6 +277,12 @@ public class ByteUtils {
 		return c;
 	}
 
+	/**
+	 * writerString
+	 * 
+	 * @param v
+	 * @return
+	 */
 	public static byte[] writerString(String v) {
 		long value = charCount(v);
 		byte[] a = new byte[] {};
@@ -289,6 +299,12 @@ public class ByteUtils {
 		return a;
 	}
 
+	/**
+	 * decodeChar
+	 * 
+	 * @param ca
+	 * @return
+	 */
 	private static byte[] decodeChar(char ca) {
 		long cp = (long) ca;
 		if (cp < 0x80) {
@@ -312,6 +328,12 @@ public class ByteUtils {
 		}
 	}
 
+	/**
+	 * writerKey
+	 * 
+	 * @param v
+	 * @return
+	 */
 	private static byte[] writerKeyStr(String v) {
 		v = v.replace("EOS", "");
 		byte[] b = Base58.decode(v);
@@ -320,8 +342,13 @@ public class ByteUtils {
 		return key;
 	}
 
+	/**
+	 * writerKey
+	 * 
+	 * @param key
+	 */
 	public static byte[] writerKey(String key) {
-		io.eosif.lib.utils.ByteBuffer   bf = new io.eosif.lib.utils.ByteBuffer ();
+		io.eosif.lib.utils.ByteBuffer bf = new io.eosif.lib.utils.ByteBuffer();
 		bf.concat(writerUnit32("1"));
 		bf.concat(writerVarint32("1"));
 		bf.concat(writerVarint32("0"));

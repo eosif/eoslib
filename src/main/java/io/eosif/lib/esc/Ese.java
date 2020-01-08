@@ -32,22 +32,22 @@ public class Ese {
 		// }
 		return Hex.bytesToHexString(allbyte);
 	}
-	public static String parseExTransferData(String from, String to, String quantity, String memo) {
-		DataParam[] datas = new DataParam[] { new DataParam(from, DataType.name, Action.extransfer),
-				new DataParam(to, DataType.name, Action.extransfer),
-				new DataParam(quantity, DataType.ext_asset, Action.extransfer),
-				new DataParam(memo, DataType.string, Action.extransfer), };
-		byte[] allbyte = new byte[] {};
-		for (DataParam value : datas) {
-			allbyte = ByteUtils.concat(allbyte, value.seria());
-		}
-		// final byte [] b = allbyte.clone();
-		// int[] a = IntStream.range(0, b.length).map(i -> b[i] & 0xff).toArray();
-		// for(int i=1;i<=a.length;i++) {
-		// System.out.print(a[i-1]+","+((i%8==0)?"\n":""));
-		// }
-		return Hex.bytesToHexString(allbyte);
-	}
+//	public static String parseExTransferData(String from, String to, String quantity, String memo) {
+//		DataParam[] datas = new DataParam[] { new DataParam(from, DataType.name, Action.extransfer),
+//				new DataParam(to, DataType.name, Action.extransfer),
+//				new DataParam(quantity, DataType.ext_asset, Action.extransfer),
+//				new DataParam(memo, DataType.string, Action.extransfer), };
+//		byte[] allbyte = new byte[] {};
+//		for (DataParam value : datas) {
+//			allbyte = ByteUtils.concat(allbyte, value.seria());
+//		}
+//		// final byte [] b = allbyte.clone();
+//		// int[] a = IntStream.range(0, b.length).map(i -> b[i] & 0xff).toArray();
+//		// for(int i=1;i<=a.length;i++) {
+//		// System.out.print(a[i-1]+","+((i%8==0)?"\n":""));
+//		// }
+//		return Hex.bytesToHexString(allbyte);
+//	}
 
 
 	public static String parseVoteProducerData(String voter, String proxy, List<String> producers) {
@@ -135,6 +135,23 @@ public class Ese {
 		for (DataParam value : datas) {
 			allbyte = ByteUtils.concat(allbyte, value.seria());
 		}
+		return Hex.bytesToHexString(allbyte);
+	}
+
+	public static String parseExtransferData(String from, String to, String quantity, String memo) {
+		DataParam[] datas = new DataParam[] { new DataParam(from, DataType.name, Action.extransfer),
+				new DataParam(to, DataType.name, Action.extransfer),
+				new DataParam(quantity, DataType.extended_asset, Action.extransfer),
+				new DataParam(memo, DataType.string, Action.extransfer), };
+		byte[] allbyte = new byte[] {};
+		for (DataParam value : datas) {
+			allbyte = ByteUtils.concat(allbyte, value.seria());
+		}
+		// final byte [] b = allbyte.clone();
+		// int[] a = IntStream.range(0, b.length).map(i -> b[i] & 0xff).toArray();
+		// for(int i=1;i<=a.length;i++) {
+		// System.out.print(a[i-1]+","+((i%8==0)?"\n":""));
+		// }
 		return Hex.bytesToHexString(allbyte);
 	}
 }

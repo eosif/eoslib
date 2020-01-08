@@ -130,10 +130,16 @@ public class Block {
         this.refBlockPrefix = refBlockPrefix;
     }
 
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
 
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
+    }
 
     public static void main(String[] args) {
-        Rpc rpc = new Rpc("http://54.65.22.188:8870");
+        Rpc rpc = new Rpc("http://127.0.0.1:8870");
         Block block = rpc.getBlock("23845280");
         System.out.println(block);
     }

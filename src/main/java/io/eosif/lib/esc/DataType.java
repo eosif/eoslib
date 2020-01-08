@@ -9,7 +9,7 @@ package io.eosif.lib.esc;
 public enum DataType {
 
 	name("name"), asset("asset"), string("string"), key("key"), unit16("unit16"), unit32("unit32"), varint32(
-			"varint32"),unit64("unit64"),symbol("symbol"),ext_asset("ext_asset");
+			"varint32"),unit64("unit64"),symbol("symbol"),extended_asset("extended_asset");
 
 	private DataType(String code) {
 		this.code = code;

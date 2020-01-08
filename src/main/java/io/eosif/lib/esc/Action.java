@@ -8,10 +8,8 @@ package io.eosif.lib.esc;
  */
 public enum Action {
 
-	transfer("${precision},${quantity}@eosio.token"), account("account"), ram("ram"), delegate("${precision},${quantity}@eosio.token"), voteproducer("voteproducer"),
-	close("${precision},${quantity}@eosio.token"),
-
-	extransfer("${precision},${quantity}@eosio.token");
+	transfer("${precision},${quantity}@${account}"), account("account"), ram("ram"), delegate("${precision},${quantity}@eosio.token"), voteproducer("voteproducer"),
+	close("${precision},${quantity}@eosio.token"),extransfer("${precision},${quantity}@${account}");
 
 	private String code;
 

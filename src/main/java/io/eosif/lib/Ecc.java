@@ -55,4 +55,9 @@ public class Ecc {
 	public static String parseCloseData(String owner, String symbol) {
 		return Ese.parseCloseData(owner, symbol);
 	}
+
+	public static String parseExtransferData(String from, String to, String quantity, String memo) {
+		return Ese.parseExtransferData(from, to, quantity, memo);
+	}
+
 }

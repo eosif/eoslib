@@ -1,14 +1,16 @@
 package io.eosif.lib.rpc.vo.transaction.push;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.eosif.lib.rpc.vo.BaseVo;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import io.eosif.lib.rpc.vo.BaseVo;
+import io.eosif.lib.rpc.vo.transaction.push.TxAction;
+import io.eosif.lib.rpc.vo.transaction.push.TxExtenstions;
 
 /**
- * 
+ *
  * @author espritblock http://eblock.io
  *
  */
@@ -27,11 +29,11 @@ public class Tx extends BaseVo {
 
 	private Long delay_sec;
 
-	private List<String> context_free_actions = new ArrayList<String>();
+	private List<String> context_free_actions = new ArrayList<>();
 
 	private List<TxAction> actions;
 
-	private List<TxExtenstions> transaction_extensions = new ArrayList<TxExtenstions>();
+	private List<TxExtenstions> transaction_extensions = new ArrayList<>();
 
 	public Object getExpiration() {
 		return expiration;

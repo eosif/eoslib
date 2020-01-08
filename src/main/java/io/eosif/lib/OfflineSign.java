@@ -43,19 +43,6 @@ public class OfflineSign {
 		return mapJakcson;
 	}
 
-	/**
-	 * 离线签名转账
-	 * 
-	 * @param signParam
-	 * @param pk
-	 * @param contractAccount
-	 * @param from
-	 * @param to
-	 * @param quantity
-	 * @param memo
-	 * @return
-	 * @throws Exception
-	 */
 	public String transfer(SignParam signParam, String pk, String contractAccount, String from, String to,
 						   String quantity, String memo) throws Exception {
 		Tx tx = new Tx();
@@ -88,20 +75,39 @@ public class OfflineSign {
 		tx.setExpiration(dateFormatter.format(new Date(1000 * Long.parseLong(tx.getExpiration().toString()))));
 		return pushTransaction("none", tx, new String[] { sign });
 	}
+	public String extransfer(SignParam signParam, String pk, String contractAccount, String from, String to,
+							 String quantity, String memo) throws Exception {
+		Tx tx = new Tx();
+		tx.setExpiration(signParam.getHeadBlockTime().getTime() / 1000 + signParam.getExp());
+		tx.setRef_block_num(signParam.getLastIrreversibleBlockNum());
+		tx.setRef_block_prefix(signParam.getRefBlockPrefix());
+		tx.setNet_usage_words(0l);
+		tx.setMax_cpu_usage_ms(0l);
+		tx.setDelay_sec(0l);
+		// actions
+		List<TxAction> actions = new ArrayList<>();
+		// data
+		Map<String, Object> dataMap = new LinkedHashMap<>();
+		dataMap.put("from", from);
+		dataMap.put("to", to);
+		dataMap.put("quantity", new DataParam(quantity, DataType.asset, Action.extransfer).getValue());
+		dataMap.put("memo", memo);
+		// action
+		System.out.println(dataMap);
+		TxAction action = new TxAction(from, contractAccount, "extransfer", dataMap);
+		actions.add(action);
+		tx.setActions(actions);
+		// sgin
 
-	/**
-	 * 离线签名创建账户
-	 * 
-	 * @param signParam
-	 * @param pk
-	 * @param creator
-	 * @param newAccount
-	 * @param owner
-	 * @param active
-	 * @param buyRam
-	 * @return
-	 * @throws Exception
-	 */
+		String sign = Ecc.signTransaction(pk, new TxSign(signParam.getChainId(), tx));
+		// data parse
+		String data = Ecc.parseExtransferData(from, to, quantity, memo);
+		// reset data
+		action.setData(data);
+		// reset expiration
+		tx.setExpiration(dateFormatter.format(new Date(1000 * Long.parseLong(tx.getExpiration().toString()))));
+		return pushTransaction("none", tx, new String[] { sign });
+	}
 	public String createAccount(SignParam signParam, String pk, String creator, String newAccount, String owner,
 			String active, Long buyRam) throws Exception {
 		Tx tx = new Tx();
