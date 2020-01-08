@@ -7,7 +7,7 @@ import io.eosif.lib.rpc.vo.Block;
  */
 public class GetBlockTest {
     public static void main(String[] args){
-        Rpc rpc = new Rpc("http://127.0.0.1:8870");
+        Rpc rpc = new Rpc("http://127.0.0.1:8880");
         Block block=rpc.getBlock("123456");
         System.out.println();
     }
