@@ -1,6 +1,6 @@
 # eoslib
 
-eoslib 1.0.6 for java 
+eoslib 1.0.9 for java 
 
 change writeName add writeUint64 support custom contract
 
@@ -9,7 +9,7 @@ change writeName add writeUint64 support custom contract
 <dependency>
     <groupId>com.github.eosif</groupId>
     <artifactId>eos-lib</artifactId>
-    <version>1.0.6</version>
+    <version>1.0.9</version>
 </dependency>    
 ```
 
