@@ -1,6 +1,6 @@
 # eoslib
 
-eoslib 1.0.9 for java 
+eoslib 1.1.1 for java 
 
 change writeName add writeUint64 support custom contract
 
@@ -9,45 +9,57 @@ change writeName add writeUint64 support custom contract
 <dependency>
     <groupId>com.github.eosif</groupId>
     <artifactId>eos-lib</artifactId>
-    <version>1.0.9</version>
+    <version>1.1.1</version>
 </dependency>    
 ```
 
 
 # use
 
+## support getBlock
 
-## support offline sign
+```
+    public static void main(String[] args){
+        Rpc rpc = new Rpc("http://127.0.0.1:8880");
+        Block block=rpc.getBlock("123456");
+    }
+
+```
+
+## support offline sign transfer
  
  ```
     public static void main(String[] args) {
+        //transfer
         Rpc rpc = new Rpc("http://127.0.0.1:8880");
-        String fromAccount = "sdfaassdfew";
-        String toAccount = "asdfads";
-        String amount = "0.001";
-        String privateKey = "5Hzr1sPAJMdsewddgfewSdb5Qm54sDgFVSGRFSUJqdCdHUFJnX1oY";
-        String memo = "123456";
-        SignParam params = rpc.getOfflineSignParams(3600l);
-        OfflineSign sign = new OfflineSign();
-        String content = "";
-        try {
-            content = sign.transfer(params, privateKey, "eosio.token",
-                    fromAccount, toAccount, String.format("%.4f EOS", Double.parseDouble(amount)), memo);
-            System.out.println(content);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        String fromAccount = "asfesfdsfgws";
+        String toAccount = "sceslfkscf";
+        String amount = "0.01";
+        String symbol = "EOS";
+        String memo = "transfer";
+        String privateKey = "......";
+        TransferUtils.transfer(rpc, fromAccount, toAccount, amount, symbol, memo, privateKey);
 
-        try {
-            Transaction tx = rpc.pushTransaction(content);
-            System.out.println(tx.getTransactionId());
-        } catch (ApiException ex) {
-            System.out.println(ex.getError());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 	
+ ```
+ 
+ ## supoprt offline extransfer
+ 
+ ```
+     public static void main(String[] args) {
+         //transfer
+        Rpc rpc = new Rpc("http://127.0.0.1:8880");
+        String fromAccount = "asfesfdsfgws";
+        String toAccount = "sceslfkscf";
+        String amount = "0.01";
+        String symbol = "EOS@eosio.token";
+        String memo = "extransfer";
+        String privateKey = "......";
+
+        TransferUtils.extransfer(rpc, fromAccount, toAccount, amount, symbol, memo, privateKey);
+	
+    }
  ```
 
 
