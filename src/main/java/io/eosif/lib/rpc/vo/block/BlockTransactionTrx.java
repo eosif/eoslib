@@ -1,4 +1,4 @@
-package io.eosif.lib.rpc.vo.transaction.block;
+package io.eosif.lib.rpc.vo.block;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Created by Enzo Cotter on 2020/1/7.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Trx {
+public class BlockTransactionTrx {
 
     String id;
     @JsonProperty("transaction")
-    private InnerTransaction transaction;
+    private BlockTransactionTrxTransaction transaction;
 
     public String getId() {
         return id;
@@ -21,11 +21,11 @@ public class Trx {
         this.id = id;
     }
 
-    public InnerTransaction getTransaction() {
+    public BlockTransactionTrxTransaction getTransaction() {
         return transaction;
     }
 
-    public void setTransaction(InnerTransaction transaction) {
+    public void setTransaction(BlockTransactionTrxTransaction transaction) {
         this.transaction = transaction;
     }
 }

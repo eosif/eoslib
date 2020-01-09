@@ -6,7 +6,7 @@
 
     <groupId>com.github.eosif</groupId>
     <artifactId>eos-lib</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.4</version>
 
     <parent>
         <groupId>org.sonatype.oss</groupId>

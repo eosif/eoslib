@@ -3,7 +3,7 @@ package io.eosif.lib.rpc.vo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.eosif.lib.Rpc;
-import io.eosif.lib.rpc.vo.transaction.block.Transaction;
+import io.eosif.lib.rpc.vo.block.BlockTransaction;
 
 import java.util.Date;
 import java.util.List;
@@ -44,7 +44,7 @@ public class Block {
     @JsonProperty("ref_block_prefix")
     private Long refBlockPrefix;
     @JsonProperty("transactions")
-    private List<Transaction> transactions;
+    private List<BlockTransaction> transactions;
 
     public Block() {
 
@@ -130,11 +130,11 @@ public class Block {
         this.refBlockPrefix = refBlockPrefix;
     }
 
-    public List<Transaction> getTransactions() {
+    public List<BlockTransaction> getTransactions() {
         return transactions;
     }
 
-    public void setTransactions(List<Transaction> transactions) {
+    public void setTransactions(List<BlockTransaction> transactions) {
         this.transactions = transactions;
     }
 

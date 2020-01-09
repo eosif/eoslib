@@ -5,6 +5,9 @@ import io.eosif.lib.esc.Action;
 import io.eosif.lib.esc.DataParam;
 import io.eosif.lib.esc.DataType;
 import io.eosif.lib.esc.Ese;
+import io.eosif.lib.rpc.vo.transaction.query.GetTransactionReq;
+import io.eosif.lib.rpc.vo.transaction.query.GetTransactionResp;
+import io.eosif.lib.rpc.vo.transaction.query.GetTransactionReq;
 import io.eosif.lib.rpc.service.RpcService;
 import io.eosif.lib.rpc.utils.Generator;
 import io.eosif.lib.rpc.vo.*;
@@ -14,6 +17,7 @@ import io.eosif.lib.rpc.vo.transaction.push.Tx;
 import io.eosif.lib.rpc.vo.transaction.push.TxAction;
 import io.eosif.lib.rpc.vo.transaction.push.TxRequest;
 import io.eosif.lib.rpc.vo.transaction.push.TxSign;
+import io.eosif.lib.rpc.vo.transaction.query.GetTransactionResp;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -44,6 +48,10 @@ public class Rpc {
 
 	public TableRows getTableRows(TableRowsReq req) {
 		return Generator.executeSync(rpcService.getTableRows(req));
+	}
+
+	public GetTransactionResp getTransaction(GetTransactionReq req) {
+		return Generator.executeSync(rpcService.getTransaction(req));
 	}
 
 	public Transaction pushTransaction(String compression, Tx pushTransaction, String[] signatures) throws Exception {

@@ -1,4 +1,4 @@
-package io.eosif.lib.rpc.vo.transaction.block;
+package io.eosif.lib.rpc.vo.block;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,7 +10,7 @@ import java.util.List;
  * Created by Enzo Cotter on 2020/1/7.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class InnerTransaction {
+public class BlockTransactionTrxTransaction {
     @JsonProperty("actions")
     private List<TxAction> actions;
 

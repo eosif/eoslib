@@ -1,6 +1,7 @@
 package io.eosif.lib;
 
-
+import io.eosif.lib.OfflineSign;
+import io.eosif.lib.Rpc;
 import io.eosif.lib.rpc.exception.ApiException;
 import io.eosif.lib.rpc.vo.SignParam;
 import io.eosif.lib.rpc.vo.transaction.Transaction;
@@ -22,7 +23,7 @@ public class OfflineTest {
         OfflineSign sign = new OfflineSign();
         String content = "";
         try {
-            content = sign.transfer(params, "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4sdsSDFEDFDWEFEWSDD", "eosio.token",
+            content = sign.transfer(params, "....", "eosio.token",
                     "eeeeeeeeeeee", "555555555551", "372.0993 EOS", "test");
             System.out.println(content);
         } catch (Exception e) {
